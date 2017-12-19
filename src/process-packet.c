@@ -21,9 +21,6 @@
 
 #include "process-packet.h"
 
-#include <netinet/in.h>
-#include <netinet/ip.h>
-#include <netinet/tcp.h>
 #include <net/ethernet.h>
 #include <arpa/inet.h>
 
@@ -119,7 +116,7 @@ process_ip(pcap_t *dev, const struct ip *ip, struct timeval tv) {
     case IPPROTO_TCP:
         tcp = (struct tcphdr *) ((unsigned char *) ip + sizeof(struct ip));
         
-#if defined(__FAVOR_BSD)
+#if defined(__unix__)
         sport = ntohs(tcp->th_sport);
         dport = ntohs(tcp->th_dport);
         datalen = len - sizeof(struct ip) - tcp->th_off * 4;    // 4 bits offset 

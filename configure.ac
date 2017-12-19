@@ -58,7 +58,7 @@ AC_CHECK_FUNCS([gettimeofday inet_ntoa memset strdup strtol])
 if test x$buildpcap == xyes
 then
     # We need flex and yacc
-    if ! $YACC --version &>/dev/null
+    if ! $YACC --version >/dev/null
     then
         AC_MSG_ERROR(
             [Cannot build libpcap without bison or yacc. Please install either.])

@@ -22,7 +22,10 @@
 #if !defined(PROCESS_PACKET_H)
 #define PROCESS_PACKET_H
 
+#include <netinet/in.h>
+#include <resolv.h>
 #include <netinet/ip.h>
+#include <netinet/tcp.h>
 #include <pcap.h>
 
 void process_packet(unsigned char *, const struct pcap_pkthdr *,

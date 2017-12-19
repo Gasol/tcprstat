@@ -23,6 +23,9 @@
 #define CAPTURE_H
 
 #include <stdio.h>
+#include <netinet/in.h>
+#include <resolv.h>
+#include <netinet/ip.h>
 
 #define CAPTURE_LENGTH		65535
 #define READ_TIMEOUT		2000

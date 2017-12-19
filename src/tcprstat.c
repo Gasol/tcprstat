@@ -29,6 +29,8 @@
 #include <time.h>
 #include <errno.h>
 
+#include <netinet/in.h>
+
 #include "tcprstat.h"
 #include "functions.h"
 #include "local-addresses.h"
@@ -187,7 +189,6 @@ main(int argc, char *argv[]) {
     sigaddset(&sa.sa_mask, SIGTERM);
     sigaddset(&sa.sa_mask, SIGINT);
     sa.sa_flags = 0;
-    sa.sa_restorer = NULL;
     
     sigaction(SIGTERM, &sa, NULL);
     sigaction(SIGINT, &sa, NULL);
