@@ -49,12 +49,13 @@ struct option long_options[] = {
     { "no-header", no_argument, NULL, 'S' },
     { "interval", required_argument, NULL, 't' },
     { "iterations", required_argument, NULL, 'n' },
+    { "interface", required_argument, NULL, 'i' },
     { "read", required_argument, NULL, 'r' },
 
     { NULL, 0, NULL, '\0' }
 
 };
-char *short_options = "hVp:f:t:n:r:l:";
+char *short_options = "hVp:f:t:n:r:l:i:";
 
 int specified_addresses = 0;
 
@@ -83,6 +84,7 @@ main(int argc, char *argv[]) {
     struct sigaction sa;
     char c;
     int option_index = 0;
+    char iface[255] = "any";
     
     // Program name
     program_name = strrchr(argv[0], '/');
@@ -99,7 +101,11 @@ main(int argc, char *argv[]) {
 
         case -1:
             break;
-            
+
+        case 'i':
+            strncpy(iface, optarg, sizeof(iface) - 1);
+            break;
+
         case 'r':
             capture_file = fopen(optarg, "r");
             if (!capture_file) {
@@ -213,7 +219,8 @@ main(int argc, char *argv[]) {
     }
     else {
         // Fire up capturing thread
-        pthread_create(&capture_thread_id, NULL, capture, NULL);
+        pthread_create(&capture_thread_id, NULL, capture, (void *)iface);
+        
         
         // Options thread
         pthread_create(&output_thread_id, NULL, output_thread, &output_options);

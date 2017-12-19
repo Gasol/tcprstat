@@ -33,9 +33,10 @@ capture(void *arg) {
     char errbuf[PCAP_ERRBUF_SIZE];
     char filter[30];
     int r;
+    char *iface = (char *)arg;
 
     // Second argument 0 stands for non-promiscuous mode
-    pcap = pcap_open_live("any", CAPTURE_LENGTH, 0, READ_TIMEOUT, errbuf);
+    pcap = pcap_open_live(iface, CAPTURE_LENGTH, 0, READ_TIMEOUT, errbuf);
     if (!pcap) {
         fprintf(stderr, "pcap: %s\n", errbuf);
         return NULL;
